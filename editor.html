@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/codemirror.min.css">
+</link>
+
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/theme/monokai.min.css">
+</link>
+
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/codemirror.min.js">
+</script>
+
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/mode/javascript/javascript.js">
+</script>
+
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/mode/clike/clike.js">
+</script>
+
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/mode/python/python.js">
+</script>
+<!-- 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/addon/hint/show-hint.css">
+<script type="text/javascript" src="https://codemirror.net/addon/hint/show-hint.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/addon/hint/javascript-hint.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/addon/hint/anyword-hint.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.56.0/addon/hint/javascript-hint.js"></script>
+ -->
+
+
+ <style>
+    .split {
+  height: 100%;
+  width: 70%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+  background-color:#FFF;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  background-color:#FFF;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.top {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Style the image inside the centered container, if needed */
+.centered img {
+  width: 150px;
+  border-radius: 50%;
+}
+</style>
+</head>
+<body>
+    <div class="split left">
+        <div>
+            <p>
+                The problem statement is as follows:
+            </p>
+        </div>
+      </div>
+      
+      <div class="split right">
+        <div>
+            Language:<select name="language" id="language" onchange="checkLanguage(this);"> 
+                <option selected="selected" value="Choose" >Choose</option>
+                <option value="Java" >Java</option>
+                <option value="Python" >Python</option>
+            </select>
+        </div>
+        <div id="editor">
+            <textarea id="code" name="code"></textarea> 
+        </div> 
+        <div>
+            <textarea id="console" name="console" style="width: 100%; height:150px">[1,2,3,4,5]</textarea> 
+        </div> 
+        <form style="position: absolute; right: 0;" >
+            <input type="button" id="Run" name="Run" value="Run" onclick="execute()" />
+            <input type="button" id="Submit" name="Submit" value="Submit" onclick="submit()" />
+        </form>
+      </div>
+
+      <script type="text/javascript">
+        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+          lineNumbers: true,
+          tabSize: 4,
+          indentUnit: 4,
+          textWrapping: true,
+          mode:'javascript',
+          theme: 'monokai'
+        });
+        function loadJava()
+        {
+            //alert("In Java")
+            this.editor.setOption("mode", 'text/x-java');
+        }
+    
+        function loadPython()
+        {
+          //alert("In Python")
+          var mode = {
+            name: "python",
+            version: 3,
+            singleLineStringErrors: false,
+            autofocus: true,
+            //extraKeys: {"Ctrl-Space": "autocomplete"}
+          }
+          this.editor.setOption("mode", mode);
+        }
+    
+        function checkLanguage(lang) {
+            var language = document.getElementById('language');
+            if (language.options[language.selectedIndex].value === 'Python') {
+                loadPython();
+            } else {
+                loadJava();
+            }
+        }
+        function execute()
+        {
+            alert("execute")
+        }
+    
+        function submit()
+        {
+            alert("submit")
+        }
+    </script>
+</body>
+</html>
